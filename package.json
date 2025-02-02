@@ -1,0 +1,15 @@
+{
+  "name": "research-llm",
+  "version": "1.0.0",
+  "description": "A desktop chat app for using ResearchLLM",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "dependencies": {
+    "openai": "^4.0.0"
+  },
+  "devDependencies": {
+    "electron": "^25.2.0"
+  }
+}

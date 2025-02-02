@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>ResearchLLM</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      display: flex;
+      margin: 0;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      background: #f7f9fc;
+      color: #333;
+      height: 100vh;
+      overflow: hidden;
+    }
+    #chat-list {
+      width: 240px;
+      background: #fff;
+      border-right: 1px solid #ddd;
+      padding: 15px;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    #chat-list button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      background: #007bff;
+      color: #fff;
+      font-size: 14px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #chat-list button:hover {
+      background: #0056b3;
+    }
+    .chat-item {
+      padding: 10px;
+      margin-bottom: 8px;
+      background: #f1f3f5;
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .chat-item:hover {
+      background: #e9ecef;
+    }
+    .chat-title {
+      flex: 1;
+      font-size: 15px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .chat-actions {
+      display: flex;
+      gap: 6px;
+    }
+    .chat-actions button {
+      border: none;
+      background: transparent;
+      color: #888;
+      font-size: 12px;
+      cursor: pointer;
+      padding: 2px 4px;
+    }
+    .chat-actions button:hover {
+      color: #000;
+    }
+    #main-view {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      overflow: hidden;
+    }
+    #chat-display {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #fff;
+      min-width: 0;
+    }
+    #dashboard-view {
+      flex: 1;
+      padding: 20px;
+      overflow-y: auto;
+      background: #fff;
+      display: none;
+      min-width: 0;
+    }
+    .dashboard-columns {
+      display: flex;
+      gap: 15px;
+      height: 100%;
+    }
+    .kanban-column {
+      flex: 1;
+      background: #f1f3f5;
+      border-radius: 4px;
+      padding: 10px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .kanban-column h3 {
+      margin-top: 0;
+      text-align: center;
+      font-size: 16px;
+    }
+    .kanban-column .card {
+      background: #fff;
+      padding: 8px;
+      border-radius: 4px;
+      cursor: move;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+      font-size: 14px;
+    }
+    #input-area {
+      display: flex;
+      align-items: center;
+      padding: 15px;
+      background: #fff;
+      border-top: 1px solid #ddd;
+      flex-shrink: 0;
+    }
+    #chat-input {
+      flex: 1;
+      padding: 10px;
+      font-size: 15px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      margin-right: 10px;
+    }
+    #file-input {
+      margin-right: 10px;
+    }
+    #send-button {
+      padding: 10px 15px;
+      background: #28a745;
+      border: none;
+      color: #fff;
+      font-size: 15px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    #send-button:hover {
+      background: #218838;
+    }
+    .user {
+      text-align: right;
+      margin: 10px 0;
+    }
+    .assistant {
+      text-align: left;
+      margin: 10px 0;
+    }
+    .assistant .markdown-content {
+      font-size: 15px;
+      line-height: 1.5;
+    }
+    .thinking {
+      font-style: italic;
+      background: #f0f0f0;
+      padding: 5px;
+      border-radius: 4px;
+      color: #555;
+      margin: 10px 0;
+    }
+  </style>
+</head>
+<body>
+  <div id="chat-list">
+    <button id="dashboard-btn">Dashboard</button>
+    <button id="new-chat">+ New Chat</button>
+    <button id="import-chat">⤓ Import Chat</button>
+  </div>
+  <div id="main-view">
+    <div id="chat-display"></div>
+    <div id="dashboard-view"></div>
+    <div id="input-area">
+      <input type="text" id="chat-input" placeholder="Type your message here...">
+      <input type="file" id="file-input" accept=".pdf,.csv" multiple>
+      <button id="send-button">Send</button>
+    </div>
+  </div>
+  <script src="renderer.js"></script>
+</body>
+</html>
